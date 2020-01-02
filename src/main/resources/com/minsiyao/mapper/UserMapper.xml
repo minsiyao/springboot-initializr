@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.minsiyao.dao.UserDao">
+    <!--添加用户-->
+    <insert id="insert">
+    INSERT INTO BOOTSTRAP_USER VALUES(#{id},#{name},#{password},#{age},#{birthday},#{mobile},#{status})
+  </insert>
+    <!--查询所有用户-->
+    <select id="selectAll" resultType="User">
+    select * from BOOTSTRAP_USER
+  </select>
+    <!--模糊查询用户-->
+    <select id="fuzzyQuery" resultType="User">
+        select * from BOOTSTRAP_USER
+        <where>
+            <if test="name!=null">
+                and name like  concat("%",#{name},"%")
+            </if>
+            <if test="mobile!=null">
+                and mobile like concat("%",#{mobile},"%")
+            </if>
+            <if test="status!=null">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+    <!--通过id删除用户-->
+    <delete id="deleteById">
+    delete from BOOTSTRAP_USER where id = #{id}
+  </delete>
+    <!--修改用户信息-->
+    <update id="update">
+        update BOOTSTRAP_USER
+        <set>
+            <if test="name!=null">
+                name = #{name} ,
+            </if>
+            <if test="password!=null">
+                password = #{password} ,
+            </if>
+            <if test="age!=null">
+                age = #{age} ,
+            </if>
+            <if test="birthday!=null">
+                birthday = #{birthday} ,
+            </if>
+            <if test="mobile!=null">
+                mobile = #{mobile} ,
+            </if>
+            <if test="status!=null">
+                status = #{status}
+            </if>
+            where id = #{id}
+        </set>
+    </update>
+    <!--通过id查询用户-->
+    <select id="selectById" resultType="User">
+    select * from BOOTSTRAP_USER where id = #{id}
+  </select>
+    <!--分页查询-->
+    <select id="pagingSelect" resultType="User">
+    select * from BOOTSTRAP_USER limit #{start},#{lineNum}
+  </select>
+    <!--查询总条数-->
+    <select id="selectRecords" resultType="Integer">
+    select count(id) from BOOTSTRAP_USER
+  </select>
+</mapper>

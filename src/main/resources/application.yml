@@ -1,0 +1,49 @@
+server:
+  servlet:
+    context-path: /test
+    jsp:
+      init-parameters:
+        development: true
+spring:
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      enabled: true
+      max-request-size: 20MB
+  http:
+    encoding:
+      charset: UTF-8        #编码格式
+      force: true           #是否强制执行
+      force-request: true
+      force-response: true
+  profiles:
+    active: test2          #规定使用的小配置文件
+  devtools:
+    restart:
+      enabled: true #设置开启热部署
+  freemarker:
+    cache: false #页面不加载缓存，修改即时生效
+  datasource:
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/mysql
+    driver-class-name: com.mysql.jdbc.Driver
+  mvc:
+    view:
+      prefix: /
+      suffix: .jsp
+    date-format: yyyy-MM-dd hh:mm:ss
+mybatis:
+  mapper-locations: classpath:com/minsiyao/mapper/*.xml
+  type-aliases-package: com.minsiyao.entity
+
+logging:
+  level:
+    root: warn                 #根日志89
+    com.minsiyao.dao: debug   #子日志
+#  file: D:/testLog.log         #指定输出的  文件夹  +  文件名
+  path: D:/aaaa                #指定输出的文件夹
+  pattern:                     #自定义布局
+    console:  '[%p] %d{yyyy-MM-dd HH:mm:ss}%m %n'   #控制台布局
+    file: '[%p] %d{yyyy-MM-dd HH:mm:ss}%m %n'       #在文件中的布局
